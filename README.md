@@ -2,15 +2,16 @@
 
 [![Flutter](https://img.shields.io/badge/flutter-2.x-blue.svg)](https://flutter.dev)
 
-A lightweight, modular Flutter timer app that demonstrates animated timer widgets: a flip clock, flip-card timers, and a full-screen timer view. Suitable as a small productivity tool or a UI demo.
+A lightweight, modular Flutter timer app that demonstrates animated timer widgets: a flip clock, flip-card timers, and a full-screen timer view. Suitable as a small productivity tool.
 
 
 
 ## Screenshots (placeholder)
 
-Replace the placeholder with real screenshots in `assets/screenshots/`.
 
-![Placeholder screenshot](assets/screenshots/screenshot.svg)
+![Placeholder screenshot](assets/screenshots/main_page.png)
+![Placeholder screenshot](assets/screenshots/screenshot1.png)
+
 
 ## Contributing
 
