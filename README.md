@@ -1,16 +1,23 @@
 # metopi_timer
 
-A new Flutter project.
+[![Flutter](https://img.shields.io/badge/flutter-2.x-blue.svg)](https://flutter.dev)
 
-## Getting Started
+A lightweight, modular Flutter timer app that demonstrates animated timer widgets: a flip clock, flip-card timers, and a full-screen timer view. Suitable as a small productivity tool or a UI demo.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots (placeholder)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Replace the placeholder with real screenshots in `assets/screenshots/`.
+
+![Placeholder screenshot](assets/screenshots/screenshot.svg)
+
+## Contributing
+
+Contributions welcome. Open issues or PRs with focused changes. Include screenshots for UI changes and tests for new logic.
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+

@@ -1,0 +1,8 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=metopi_timer
+Exec=metopi_timer
+Icon=metopi_timer
+Categories=Utility;
+StartupNotify=false

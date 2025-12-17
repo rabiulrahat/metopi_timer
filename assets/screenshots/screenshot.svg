@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="600" viewBox="0 0 1024 600">
+  <rect width="100%" height="100%" fill="#f6f7fb"/>
+  <rect x="48" y="48" width="928" height="504" rx="12" fill="#ffffff" stroke="#e1e4ee"/>
+  <g font-family="Segoe UI, Roboto, Arial" fill="#3b4252">
+    <text x="70" y="120" font-size="28" font-weight="700">metopi_timer — Placeholder Screenshot</text>
+    <text x="70" y="160" font-size="16" fill="#6b7280">Replace this file with a real screenshot: show the flip clock, flip card, or full-screen timer.</text>
+  </g>
+  <g transform="translate(70,200)">
+    <rect width="420" height="220" rx="8" fill="#0f172a"/>
+    <text x="28" y="120" fill="#fff" font-size="64" font-family="monospace">00:25:00</text>
+  </g>
+</svg>
