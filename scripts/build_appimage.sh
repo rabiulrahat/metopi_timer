@@ -39,11 +39,12 @@ fi
 chmod +x "$MAIN_BIN"
 
 # Create a .desktop file with correct Exec path
+# Use relative path from AppDir root to the binary
 cat > "$APPDIR/${APP_NAME}.desktop" <<EOF
 [Desktop Entry]
 Type=Application
 Name=metopi_timer
-Exec=metopi_timer
+Exec=./usr/metopi_timer
 Icon=metopi_timer
 Categories=Utility;
 StartupNotify=false
@@ -67,6 +68,18 @@ fi
 # Make sure AppDir has the .desktop and icons in expected places
 mkdir -p "$APPDIR/usr/share/applications"
 cp "$APPDIR/${APP_NAME}.desktop" "$APPDIR/usr/share/applications/"
+
+# Create AppRun script if appimagetool doesn't create it
+if [ ! -f "$APPDIR/AppRun" ]; then
+  cat > "$APPDIR/AppRun" <<'APPRUN_EOF'
+#!/bin/bash
+APPDIR="$(dirname "$(readlink -f "$0")")"
+export LD_LIBRARY_PATH="$APPDIR/usr/lib:$LD_LIBRARY_PATH"
+export PATH="$APPDIR/usr:$APPDIR/usr/bin:$PATH"
+exec "$APPDIR/usr/metopi_timer" "$@"
+APPRUN_EOF
+  chmod +x "$APPDIR/AppRun"
+fi
 
 # Download appimagetool if needed
 if [ ! -x ./appimagetool-x86_64.AppImage ]; then
