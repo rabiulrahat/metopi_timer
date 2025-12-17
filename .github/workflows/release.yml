@@ -1,0 +1,46 @@
+name: Build & Release AppImage
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev build-essential cmake ninja-build pkg-config imagemagick
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+
+      - name: Create icon (if missing)
+        run: |
+          python3 create_icon.py || echo "Icon already exists"
+
+      - name: Build AppImage
+        run: |
+          chmod +x scripts/build_appimage.sh
+          ./scripts/build_appimage.sh metopi_timer-x86_64.AppImage
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: metopi_timer-x86_64.AppImage
+          body: |
+            metopi_timer AppImage release for Linux
+
+            ## Install & Run
+            ```bash
+            chmod +x metopi_timer-x86_64.AppImage
+            ./metopi_timer-x86_64.AppImage
+            ```
+
+            Tested on Ubuntu, Manjaro, and other x86_64 Linux distributions.
