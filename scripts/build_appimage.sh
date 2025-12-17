@@ -23,29 +23,27 @@ if [ ! -d "$BUNDLE_DIR" ]; then
 fi
 
 rm -rf "$APPDIR"
-mkdir -p "$APPDIR/usr/bin"
+mkdir -p "$APPDIR/usr"
 
 # Copy the release bundle into AppDir/usr
 cp -r "$BUNDLE_DIR/"* "$APPDIR/usr/" 
 
-# Ensure the main binary is executable
-MAIN_BIN="$APPDIR/usr/bin/$APP_NAME"
-if [ -f "$MAIN_BIN" ]; then
-  chmod +x "$MAIN_BIN"
-else
-  # Attempt to find any executable in usr/bin
-  MAIN_BIN_FIND=$(find "$APPDIR/usr/bin" -maxdepth 1 -type f -executable | head -n1 || true)
-  if [ -n "$MAIN_BIN_FIND" ]; then
-    MAIN_BIN="$MAIN_BIN_FIND"
-  fi
+# Find the main binary (it's typically in usr/ directly, not usr/bin/)
+MAIN_BIN=$(find "$APPDIR/usr" -maxdepth 1 -type f -executable | head -n1 || true)
+if [ -z "$MAIN_BIN" ]; then
+  echo "No executable found in bundle. Check build output." >&2
+  exit 4
 fi
 
-# Create a .desktop file
+# Make it executable
+chmod +x "$MAIN_BIN"
+
+# Create a .desktop file with correct Exec path
 cat > "$APPDIR/${APP_NAME}.desktop" <<EOF
 [Desktop Entry]
 Type=Application
 Name=metopi_timer
-Exec=$(basename "$MAIN_BIN")
+Exec=metopi_timer
 Icon=metopi_timer
 Categories=Utility;
 StartupNotify=false
@@ -56,10 +54,13 @@ ICON_DST="$APPDIR/usr/share/icons/hicolor/256x256/apps"
 mkdir -p "$ICON_DST"
 if [ -f "assets/icon.png" ]; then
   cp assets/icon.png "$ICON_DST/metopi_timer.png"
+  # Also copy to AppDir root so appimagetool finds it
+  cp assets/icon.png "$APPDIR/metopi_timer.png"
 else
   # create a small placeholder PNG using ImageMagick if available, else leave it
   if command -v convert >/dev/null 2>&1; then
     convert -size 256x256 xc:#2563eb -gravity center -pointsize 48 -fill white -annotate 0 "T" "$ICON_DST/metopi_timer.png"
+    cp "$ICON_DST/metopi_timer.png" "$APPDIR/metopi_timer.png"
   fi
 fi
 
